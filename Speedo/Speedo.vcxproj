@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{71D4C2A8-9E78-47A8-A2B7-3FB2DE014D27}</ProjectGuid>
+    <RootNamespace>Speedo</RootNamespace>
+    <ProjectName>Speedo</ProjectName>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <TargetExt>.asi</TargetExt>
+    <OutDir>bin\</OutDir>
+    <IntDir>obj\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(SolutionDir)thirdparty;../thirdparty;$(ProjectDir);..\..\ScriptHookV_SDK;..\..\GTAVMenuBase;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <TargetExt>.asi</TargetExt>
+    <OutDir>bin\dbg\</OutDir>
+    <IntDir>obj\dbg\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(SolutionDir)thirdparty;../thirdparty;$(ProjectDir);..\..\ScriptHookV_SDK;..\..\GTAVMenuBase;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>GAME_BUILD;WIN32;NDEBUG;_WINDOWS;_USRDLL;Speedo_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <FloatingPointModel>Fast</FloatingPointModel>
+    </ClCompile>
+    <Link>
+      <AdditionalOptions>..\..\ScriptHookV_SDK\lib\ScriptHookV.lib</AdditionalOptions>
+      <GenerateDebugInformation>No</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <AdditionalDependencies>"$(DXSDK_DIR)\Lib\x64\XInput.lib";%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <BuildLog>
+      <Path>$(IntDir)$(MSBuildProjectName).log</Path>
+    </BuildLog>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>GAME_BUILD;WIN32;NDEBUG;_WINDOWS;_USRDLL;Speedo_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <FloatingPointModel>Fast</FloatingPointModel>
+    </ClCompile>
+    <Link>
+      <AdditionalOptions>..\..\ScriptHookV_SDK\lib\ScriptHookV.lib</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <AdditionalDependencies>"$(DXSDK_DIR)\Lib\x64\XInput.lib";%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <BuildLog>
+      <Path>$(IntDir)$(MSBuildProjectName).log</Path>
+    </BuildLog>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\GTAVManualTransmission\Gears\Memory\NativeMemory.cpp" />
+    <ClCompile Include="..\..\GTAVManualTransmission\Gears\Memory\VehicleExtensions.cpp" />
+    <ClCompile Include="..\..\GTAVMenuBase\menu.cpp" />
+    <ClCompile Include="..\..\GTAVMenuBase\menucontrols.cpp" />
+    <ClCompile Include="..\..\GTAVMenuBase\menukeyboard.cpp" />
+    <ClCompile Include="..\..\GTAVMenuBase\menusettings.cpp" />
+    <ClCompile Include="..\..\GTAVMenuBase\menuutils.cpp" />
+    <ClCompile Include="Util\MathExt.cpp" />
+    <ClCompile Include="ScriptMenu.cpp" />
+    <ClCompile Include="Util\Paths.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="script.cpp" />
+    <ClCompile Include="ScriptSettings.cpp" />
+    <ClCompile Include="Util\Util.cpp" />
+    <ClCompile Include="Util\TimeHelper.cpp" />
+    <ClCompile Include="Util\Logger.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\GTAVManualTransmission\Gears\Memory\NativeMemory.hpp" />
+    <ClInclude Include="..\..\GTAVManualTransmission\Gears\Memory\VehicleExtensions.hpp" />
+    <ClInclude Include="..\..\GTAVMenuBase\menu.h" />
+    <ClInclude Include="..\..\GTAVMenuBase\menucontrols.h" />
+    <ClInclude Include="..\..\GTAVMenuBase\menukeyboard.h" />
+    <ClInclude Include="..\..\GTAVMenuBase\menusettings.h" />
+    <ClInclude Include="..\..\GTAVMenuBase\menuutils.h" />
+    <ClInclude Include="..\..\ScriptHookV_SDK\inc\enums.h" />
+    <ClInclude Include="..\..\ScriptHookV_SDK\inc\main.h" />
+    <ClInclude Include="..\..\ScriptHookV_SDK\inc\natives.h" />
+    <ClInclude Include="..\..\ScriptHookV_SDK\inc\types.h" />
+    <ClInclude Include="..\thirdparty\simpleini\SimpleIni.h" />
+    <ClInclude Include="Util\MathExt.h" />
+    <ClInclude Include="Util\Paths.h" />
+    <ClInclude Include="script.h" />
+    <ClInclude Include="ScriptSettings.hpp" />
+    <ClInclude Include="Util\Logger.hpp" />
+    <ClInclude Include="Util\TimeHelper.hpp" />
+    <ClInclude Include="Util\Util.hpp" />
+    <ClInclude Include="Util\Versions.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+</Project>

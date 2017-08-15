@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="script.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="ScriptSettings.cpp" />
+    <ClCompile Include="Util\Logger.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Util\TimeHelper.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Util\Util.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\GTAVMenuBase\menu.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\GTAVMenuBase\menucontrols.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\GTAVMenuBase\menukeyboard.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="ScriptMenu.cpp" />
+    <ClCompile Include="..\..\GTAVMenuBase\menuutils.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\GTAVMenuBase\menusettings.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Util\Paths.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Util\MathExt.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\GTAVManualTransmission\Gears\Memory\NativeMemory.cpp">
+      <Filter>Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\GTAVManualTransmission\Gears\Memory\VehicleExtensions.cpp">
+      <Filter>Memory</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="script.h" />
+    <ClInclude Include="..\..\ScriptHookV_SDK\inc\main.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ScriptHookV_SDK\inc\enums.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ScriptHookV_SDK\inc\natives.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ScriptHookV_SDK\inc\types.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="ScriptSettings.hpp" />
+    <ClInclude Include="Util\Util.hpp">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Util\Logger.hpp">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Util\TimeHelper.hpp">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\GTAVMenuBase\menu.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\GTAVMenuBase\menucontrols.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\GTAVMenuBase\menukeyboard.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\simpleini\SimpleIni.h">
+      <Filter>Thirdparty</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\GTAVMenuBase\menuutils.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\GTAVMenuBase\menusettings.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Util\Paths.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Util\MathExt.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Util\Versions.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\GTAVManualTransmission\Gears\Memory\NativeMemory.hpp">
+      <Filter>Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\GTAVManualTransmission\Gears\Memory\VehicleExtensions.hpp">
+      <Filter>Memory</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{01012e73-37b7-4874-b66a-9390e9a83264}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Memory">
+      <UniqueIdentifier>{09af856a-dd6f-4abb-aa1d-57e413924122}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Util">
+      <UniqueIdentifier>{6656e964-569c-448b-ac00-d586f48acb8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Menu">
+      <UniqueIdentifier>{d318979d-d544-4b16-9e26-6bec9234be3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Thirdparty">
+      <UniqueIdentifier>{d0a967a3-e709-4563-beec-8bb1bc9d1711}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
