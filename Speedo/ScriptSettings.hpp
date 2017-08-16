@@ -16,6 +16,10 @@ struct SpeedoStuff {
 	float RPMDialYpos;
 	float RPMDialSize;
 
+	float RPMRedXpos;
+	float RPMRedYpos;
+	float RPMRedSize;
+
 	float TurboBgXpos;
 	float TurboBgYpos;
 	float TurboBgSize;
@@ -24,9 +28,21 @@ struct SpeedoStuff {
 	float TurboNumYpos;
 	float TurboNumSize;
 
+	float TurboTextXpos;
+	float TurboTextYpos;
+	float TurboTextSize;
+
 	float TurboDialXpos;
 	float TurboDialYpos;
 	float TurboDialSize;
+
+	float TurboRed0Xpos;
+	float TurboRed0Ypos;
+	float TurboRed0Size;
+
+	float TurboRed1Xpos;
+	float TurboRed1Ypos;
+	float TurboRed1Size;
 
 	float SpeedXpos;
 	float SpeedYpos;

@@ -60,6 +60,9 @@ void update_menu() {
 		menu.FloatOption("RPMDialXpos", settings.SpeedoSettings.RPMDialXpos, 0.0f, 1.0f, 0.001f);
 		menu.FloatOption("RPMDialYpos", settings.SpeedoSettings.RPMDialYpos, 0.0f, 1.0f, 0.001f);
 		menu.FloatOption("RPMDialSize", settings.SpeedoSettings.RPMDialSize, 0.0f, 1.0f, 0.001f);
+		menu.FloatOption("RPMRedXpos", settings.SpeedoSettings.RPMRedXpos, 0.0f, 1.0f, 0.001f);
+		menu.FloatOption("RPMRedYpos", settings.SpeedoSettings.RPMRedYpos, 0.0f, 1.0f, 0.001f);
+		menu.FloatOption("RPMRedSize", settings.SpeedoSettings.RPMRedSize, 0.0f, 1.0f, 0.001f);
 	}
 
 	if (menu.CurrentMenu("turboposmenu")) {
@@ -71,9 +74,18 @@ void update_menu() {
 		menu.FloatOption("TurboNumXpos", settings.SpeedoSettings.TurboNumXpos, 0.0f, 1.0f, 0.001f);
 		menu.FloatOption("TurboNumYpos", settings.SpeedoSettings.TurboNumYpos, 0.0f, 1.0f, 0.001f);
 		menu.FloatOption("TurboNumSize", settings.SpeedoSettings.TurboNumSize, 0.0f, 1.0f, 0.001f);
+		menu.FloatOption("TurboTextXpos", settings.SpeedoSettings.TurboTextXpos, 0.0f, 1.0f, 0.001f);
+		menu.FloatOption("TurboTextYpos", settings.SpeedoSettings.TurboTextYpos, 0.0f, 1.0f, 0.001f);
+		menu.FloatOption("TurboTextSize", settings.SpeedoSettings.TurboTextSize, 0.0f, 1.0f, 0.001f);
 		menu.FloatOption("TurboDialXpos", settings.SpeedoSettings.TurboDialXpos, 0.0f, 1.0f, 0.001f);
 		menu.FloatOption("TurboDialYpos", settings.SpeedoSettings.TurboDialYpos, 0.0f, 1.0f, 0.001f);
 		menu.FloatOption("TurboDialSize", settings.SpeedoSettings.TurboDialSize, 0.0f, 1.0f, 0.001f);
+		menu.FloatOption("TurboRed0Xpos", settings.SpeedoSettings.TurboRed0Xpos, 0.0f, 1.0f, 0.001f);
+		menu.FloatOption("TurboRed0Ypos", settings.SpeedoSettings.TurboRed0Ypos, 0.0f, 1.0f, 0.001f);
+		menu.FloatOption("TurboRed0Size", settings.SpeedoSettings.TurboRed0Size, 0.0f, 1.0f, 0.001f);
+		menu.FloatOption("TurboRed1Xpos", settings.SpeedoSettings.TurboRed1Xpos, 0.0f, 1.0f, 0.001f);
+		menu.FloatOption("TurboRed1Ypos", settings.SpeedoSettings.TurboRed1Ypos, 0.0f, 1.0f, 0.001f);
+		menu.FloatOption("TurboRed1Size", settings.SpeedoSettings.TurboRed1Size, 0.0f, 1.0f, 0.001f);
 	}
 
 	if (menu.CurrentMenu("speedposmenu")) {

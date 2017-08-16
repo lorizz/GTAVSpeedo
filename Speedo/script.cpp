@@ -38,10 +38,14 @@ std::string skinDir;
 SpriteInfo spriteRPMBg;
 SpriteInfo spriteRPMNum;
 SpriteInfo spriteRPMDial;
+SpriteInfo spriteRPMRed;
 
 SpriteInfo spriteTurboBg;
+SpriteInfo spriteTurboText;
 SpriteInfo spriteTurboNum;
 SpriteInfo spriteTurboDial;
+SpriteInfo spriteTurboRed0;
+SpriteInfo spriteTurboRed1;
 
 SpriteInfo spriteN0;
 SpriteInfo spriteN1;
@@ -73,20 +77,44 @@ bool hasDashSpeedo = false;
 
 int prevNotification = 0;
 
+float speedoalpha = 0.0f;
 float turboalpha = 0.0f;
 
+/*
+ * Was it really necessary to distribute your speedometer sprites 
+ * over multiple files and chop it up in multiple tiny bits?!
+ * EA Black Box pls
+ */
 void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
-	float speed = ext.GetDashSpeed(vehicle);
-	if (speed > 0.0f && !hasDashSpeedo) {
-		hasDashSpeedo = true;
+	float speed;
+	float turbo;
+	float rpm;
+	int gear;
+	bool neutral;
+	bool shift_indicator;
+	if (!vehicle || !ENTITY::DOES_ENTITY_EXIST(vehicle) ||
+		playerPed != VEHICLE::GET_PED_IN_VEHICLE_SEAT(vehicle, -1)) {
+		speed = 0.0f;
+		turbo = 0.0f;
+		gear = 1;
+		neutral = true;
+		shift_indicator = false;
 	}
-	if (!hasDashSpeedo) {
-		speed = ENTITY::GET_ENTITY_SPEED(vehicle);
-	}
+	else {
+		speed = ext.GetDashSpeed(vehicle);
+		if (speed > 0.0f && !hasDashSpeedo) {
+			hasDashSpeedo = true;
+		}
+		if (!hasDashSpeedo) {
+			speed = ENTITY::GET_ENTITY_SPEED(vehicle);
+		}
 
-	float turbo = ext.GetTurbo(vehicle);
-	float rpm = ext.GetCurrentRPM(vehicle);
-	int gear = ext.GetGearCurr(vehicle);
+		turbo = ext.GetTurbo(vehicle);
+		rpm = ext.GetCurrentRPM(vehicle);
+		gear = ext.GetGearCurr(vehicle);
+		neutral = DECORATOR::DECOR_GET_INT(vehicle, "mt_neutral");
+		shift_indicator = DECORATOR::DECOR_GET_INT(vehicle, "mt_shift_indicator") > 0;
+	}
 
 	if (!engineOn) rpm = 0.0f;
 	SpriteInfo spriteUnit;
@@ -101,7 +129,6 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 	}
 
 	float screencorrection = invoke<float>(0xF1307EF624A80D87, FALSE);
-	float alpha = 1.0f;
 
 	drawTexture(spriteUnit.Id, 0, -9999, 100,
 		settings.SpeedoSettings.UnitSize, static_cast<float>(spriteUnit.Height) * (settings.SpeedoSettings.UnitSize / static_cast<float>(spriteUnit.Width)),
@@ -117,33 +144,54 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 		settings.SpeedoSettings.RPMBgSize, static_cast<float>(spriteRPMBg.Height) * (settings.SpeedoSettings.RPMBgSize / static_cast<float>(spriteRPMBg.Width)),
 		0.5f, 0.5f, 
 		settings.SpeedoSettings.RPMBgXpos, settings.SpeedoSettings.RPMBgYpos,
-		0.0f, screencorrection, 1.0f, 1.0f, 1.0f, alpha);
+		0.0f, screencorrection, 1.0f, 1.0f, 1.0f, 0.75f * speedoalpha);
 	drawTexture(spriteRPMNum.Id, 0, -9999, 100,
 		settings.SpeedoSettings.RPMNumSize, static_cast<float>(spriteRPMNum.Height) * (settings.SpeedoSettings.RPMNumSize / static_cast<float>(spriteRPMNum.Width)),
 		0.5f, 0.5f,
 		settings.SpeedoSettings.RPMNumXpos, settings.SpeedoSettings.RPMNumYpos,
-		0.0f, screencorrection, 0.1f, 0.6f, 0.82f, alpha);
+		0.0f, screencorrection, 40.0f/255.0f, 168.0f/255.0f, 227.0f/255.0f, 0.8f * speedoalpha);
 	drawTexture(spriteRPMDial.Id, 0, -9998, 100, 
 		settings.SpeedoSettings.RPMDialSize, static_cast<float>(spriteRPMDial.Height) * (settings.SpeedoSettings.RPMDialSize / static_cast<float>(spriteRPMDial.Width)),
 		0.5f, 0.5f,
 		settings.SpeedoSettings.RPMDialXpos, settings.SpeedoSettings.RPMDialYpos,
-		rpmRot, screencorrection, 1.0f, 1.0f, 1.0f, alpha);
+		rpmRot, screencorrection, 1.0f, 1.0f, 1.0f, 0.9f * speedoalpha);
+	drawTexture(spriteRPMRed.Id, 0, -9999, 100,
+		settings.SpeedoSettings.RPMRedSize, static_cast<float>(spriteRPMRed.Height) * (settings.SpeedoSettings.RPMRedSize / static_cast<float>(spriteRPMRed.Width)),
+		0.5f, 0.5f,
+		settings.SpeedoSettings.RPMRedXpos, settings.SpeedoSettings.RPMRedYpos,
+		0.0f, screencorrection, 1.0f, 0.0f, 0.0f, 0.6f* speedoalpha);
 
 	drawTexture(spriteTurboBg.Id, 0, -9999, 100,
 		settings.SpeedoSettings.TurboBgSize, static_cast<float>(spriteTurboBg.Height) * (settings.SpeedoSettings.TurboBgSize / static_cast<float>(spriteTurboBg.Width)),
 		0.5f, 0.5f,
 		settings.SpeedoSettings.TurboBgXpos, settings.SpeedoSettings.TurboBgYpos,
-		0.0f, screencorrection, 1.0f, 1.0f, 1.0f, turboalpha);
+		0.0f, screencorrection, 1.0f, 1.0f, 1.0f, 0.75f*turboalpha);
 	drawTexture(spriteTurboNum.Id, 0, -9999, 100,
 		settings.SpeedoSettings.TurboNumSize, static_cast<float>(spriteTurboNum.Height) * (settings.SpeedoSettings.TurboNumSize / static_cast<float>(spriteTurboNum.Width)),
 		0.5f, 0.5f,
 		settings.SpeedoSettings.TurboNumXpos, settings.SpeedoSettings.TurboNumYpos,
-		0.0f, screencorrection, 0.1f, 0.6f, 0.82f, turboalpha);
+		0.0f, screencorrection, 40.0f / 255.0f, 168.0f / 255.0f, 227.0f / 255.0f, 0.8f*turboalpha);
 	drawTexture(spriteTurboDial.Id, 0, -9998, 100,
 		settings.SpeedoSettings.TurboDialSize, static_cast<float>(spriteTurboDial.Height) * (settings.SpeedoSettings.TurboDialSize / static_cast<float>(spriteTurboDial.Width)),
 		0.5f, 0.5f,
 		settings.SpeedoSettings.TurboDialXpos, settings.SpeedoSettings.TurboDialYpos,
-		turboRot, screencorrection, 1.0f, 1.0f, 1.0f, turboalpha);
+		turboRot, screencorrection, 1.0f, 1.0f, 1.0f, 0.9f * turboalpha);
+
+	drawTexture(spriteTurboText.Id, 0, -9999, 100,
+		settings.SpeedoSettings.TurboTextSize, static_cast<float>(spriteTurboText.Height) * (settings.SpeedoSettings.TurboTextSize / static_cast<float>(spriteTurboText.Width)),
+		0.5f, 0.5f,
+		settings.SpeedoSettings.TurboTextXpos, settings.SpeedoSettings.TurboTextYpos,
+		0.0f, screencorrection, 0.54f, 0.69f, 0.93f, 1.0f*turboalpha);
+	drawTexture(spriteTurboRed0.Id, 0, -9999, 100,
+		settings.SpeedoSettings.TurboRed0Size, static_cast<float>(spriteTurboRed0.Height) * (settings.SpeedoSettings.TurboRed0Size / static_cast<float>(spriteTurboRed0.Width)),
+		0.5f, 0.5f,
+		settings.SpeedoSettings.TurboRed0Xpos, settings.SpeedoSettings.TurboRed0Ypos,
+		0.0f, screencorrection, 1.0f, 0.0f, 0.0f, 0.6f*turboalpha);
+	drawTexture(spriteTurboRed1.Id, 0, -9999, 100,
+		settings.SpeedoSettings.TurboRed1Size, static_cast<float>(spriteTurboRed1.Height) * (settings.SpeedoSettings.TurboRed1Size / static_cast<float>(spriteTurboRed1.Width)),
+		0.5f, 0.5f,
+		settings.SpeedoSettings.TurboRed1Xpos, settings.SpeedoSettings.TurboRed1Ypos,
+		0.0f, screencorrection, 1.0f, 0.0f, 0.0f, 0.6f*turboalpha);
 
 	std::stringstream speedoFormat;
 	speedoFormat << std::setfill('_') << std::setw(3) << std::to_string(static_cast<int>(std::round(speed)));
@@ -178,8 +226,7 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 	SpriteInfo spriteGear;
 	WTFABColor c = { 0.0f, 0.5f, 0.74f, 1.0f };
 
-	bool neutral = DECORATOR::DECOR_GET_INT(vehicle, "mt_neutral");
-	bool shift_indicator = DECORATOR::DECOR_GET_INT(vehicle, "mt_shift_indicator") > 0;
+	
 
 	if (neutral) spriteGear = spriteNN;
 	else if (gear == 0) spriteGear = spriteNR;
@@ -220,13 +267,21 @@ void update() {
 
 	if (!vehicle || !ENTITY::DOES_ENTITY_EXIST(vehicle) || 
 		playerPed != VEHICLE::GET_PED_IN_VEHICLE_SEAT(vehicle, -1)) {
-		return;
+		if (speedoalpha > 0.0f) {
+			speedoalpha -= 0.05f;
+		}
 	}
+	else {
+		if (speedoalpha < 1.0f) {
+			speedoalpha += 0.05f;
+		}
+	}
+
 	if (VEHICLE::IS_TOGGLE_MOD_ON(vehicle, VehicleToggleModTurbo) && turboalpha < 1.0f) {
-		turboalpha += 0.01f;
+		turboalpha += 0.05f;
 	}
 	if (!VEHICLE::IS_TOGGLE_MOD_ON(vehicle, VehicleToggleModTurbo) && turboalpha > 0.0f) {
-		turboalpha -= 0.01f;
+		turboalpha -= 0.05f;
 	}
 	if (turboalpha > 1.0f) {
 		turboalpha = 1.0f;
@@ -235,7 +290,9 @@ void update() {
 		turboalpha = 0.0f;
 	}
 
-	drawSpeedo(settings.Unit, true, VEHICLE::GET_IS_VEHICLE_ENGINE_RUNNING(vehicle));
+	if (speedoalpha > 0.0f) {		
+		drawSpeedo(settings.Unit, true, VEHICLE::GET_IS_VEHICLE_ENGINE_RUNNING(vehicle));
+	}
 }
 
 enum eDecorType
@@ -291,10 +348,14 @@ void createTextures(std::string skin) {
 
 	spriteRPMBg.Id = createTextureDefault(skinPath + "\\bgRPM.png", &spriteRPMBg);
 	spriteRPMNum.Id = createTextureDefault(skinPath + "\\numRPM.png", &spriteRPMNum);
+	spriteRPMRed.Id = createTextureDefault(skinPath + "\\redRPM.png", &spriteRPMRed);
 	spriteRPMDial.Id = createTextureDefault(skinPath + "\\dialRPM.png", &spriteRPMDial);
 
 	spriteTurboBg.Id = createTextureDefault(skinPath + "\\bgTurbo.png", &spriteTurboBg);
 	spriteTurboNum.Id = createTextureDefault(skinPath + "\\numTurbo.png", &spriteTurboNum);
+	spriteTurboText.Id = createTextureDefault(skinPath + "\\textTurbo.png", &spriteTurboText);
+	spriteTurboRed0.Id = createTextureDefault(skinPath + "\\redTurbo0.png", &spriteTurboRed0);
+	spriteTurboRed1.Id = createTextureDefault(skinPath + "\\redTurbo1.png", &spriteTurboRed1);
 	spriteTurboDial.Id = createTextureDefault(skinPath + "\\dialTurbo.png", &spriteTurboDial);
 
 	spriteN0.Id = createTextureDefault(skinPath + "\\N0.png", &spriteN0);
