@@ -41,6 +41,11 @@ void update_menu() {
 				settings.Unit = (UnitType)currUnit;
 			}
 		}
+
+		menu.BoolOption("FPVHide", settings.SpeedoSettings.FPVHide);
+		menu.FloatOption("Fade speed", settings.SpeedoSettings.FadeSpeed, 0.0f, 1.0f, 0.005f);
+		menu.FloatOption("OffsetX", settings.SpeedoSettings.SpeedoXpos, -1.0f, 1.0f, 0.005f);
+		menu.FloatOption("OffsetY", settings.SpeedoSettings.SpeedoYpos, -1.0f, 1.0f, 0.005f);
 		
 		menu.MenuOption("RPM", "rpmposmenu");
 		menu.MenuOption("Turbo", "turboposmenu");

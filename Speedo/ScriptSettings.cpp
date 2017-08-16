@@ -21,6 +21,14 @@ void ScriptSettings::SaveGeneral() const {
 	settingsGeneral.LoadFile(settingsGeneralFile.c_str());
 	
 	settingsGeneral.SetValue("SPEEDO", "Name", SpeedoSettings.SpeedoName.c_str());
+
+	settingsGeneral.SetBoolValue("SPEEDO", "FPVHide", SpeedoSettings.FPVHide);
+	settingsGeneral.SetDoubleValue("SPEEDO", "FadeSpeed", SpeedoSettings.FadeSpeed);
+
+	settingsGeneral.SetDoubleValue("SPEEDO", "SpeedoXpos", SpeedoSettings.SpeedoXpos);
+	settingsGeneral.SetDoubleValue("SPEEDO", "SpeedoYpos", SpeedoSettings.SpeedoYpos);
+	settingsGeneral.SetDoubleValue("SPEEDO", "SpeedoSize", SpeedoSettings.SpeedoSize);
+
 	settingsGeneral.SetDoubleValue("SPEEDO", "RPMBgXpos", SpeedoSettings.RPMBgXpos);
 	settingsGeneral.SetDoubleValue("SPEEDO", "RPMBgYpos", SpeedoSettings.RPMBgYpos);
 	settingsGeneral.SetDoubleValue("SPEEDO", "RPMBgSize", SpeedoSettings.RPMBgSize);
@@ -85,6 +93,13 @@ void ScriptSettings::parseSettingsGeneral() {
 	settingsGeneral.LoadFile(settingsGeneralFile.c_str());
 
 	SpeedoSettings.SpeedoName = settingsGeneral.GetValue("SPEEDO", "Name");
+	SpeedoSettings.FPVHide = static_cast<float>(settingsGeneral.GetBoolValue("SPEEDO", "FPVHide", false));
+	SpeedoSettings.FadeSpeed = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "FadeSpeed", 0.05));
+
+	SpeedoSettings.SpeedoXpos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "SpeedoXpos", 0.0));
+	SpeedoSettings.SpeedoYpos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "SpeedoYpos", 0.0));
+	SpeedoSettings.SpeedoSize = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "SpeedoSize", 1.0));
+
 	SpeedoSettings.RPMBgXpos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "RPMBgXpos"));
 	SpeedoSettings.RPMBgYpos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "RPMBgYpos"));
 	SpeedoSettings.RPMBgSize = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "RPMBgSize"));

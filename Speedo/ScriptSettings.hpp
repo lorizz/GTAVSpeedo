@@ -4,6 +4,13 @@
 struct SpeedoStuff {
 	std::string SpeedoName;
 
+	bool FPVHide;
+	float FadeSpeed;
+
+	float SpeedoXpos;
+	float SpeedoYpos;
+	float SpeedoSize;
+
 	float RPMBgXpos;
 	float RPMBgYpos;
 	float RPMBgSize;
