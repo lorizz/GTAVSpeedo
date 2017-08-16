@@ -1,6 +1,5 @@
 #include "MathExt.h"
 #include <math.h>
-#include <inc/types.h>
 
 float lerp(float a, float b, float f) {
 	return a + f * (b - a);

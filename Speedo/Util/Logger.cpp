@@ -1,8 +1,8 @@
-#include <Windows.h>
+#include "Logger.hpp"
+
 #include <fstream>
 #include <iomanip>
-
-#include "Logger.hpp"
+#include <Windows.h>
 
 Logger::Logger() {}
 

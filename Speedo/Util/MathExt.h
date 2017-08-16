@@ -1,6 +1,6 @@
 #pragma once
-#include <inc/types.h>
 #include <vector>
+#include <inc/types.h>
 
 template <typename T> int sgn(T val) {
 	return (T(0) < val) - (val < T(0));

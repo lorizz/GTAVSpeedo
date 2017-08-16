@@ -41,6 +41,12 @@
     <ClCompile Include="..\..\GTAVManualTransmission\Gears\Memory\VehicleExtensions.cpp">
       <Filter>Memory</Filter>
     </ClCompile>
+    <ClCompile Include="..\thirdparty\lodepng\lodepng.cpp">
+      <Filter>Thirdparty</Filter>
+    </ClCompile>
+    <ClCompile Include="..\thirdparty\lodepng\lodepng_util.cpp">
+      <Filter>Thirdparty</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="script.h" />
@@ -98,6 +104,12 @@
     </ClInclude>
     <ClInclude Include="..\..\GTAVManualTransmission\Gears\Memory\VehicleExtensions.hpp">
       <Filter>Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\lodepng\lodepng.h">
+      <Filter>Thirdparty</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\lodepng\lodepng_util.h">
+      <Filter>Thirdparty</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

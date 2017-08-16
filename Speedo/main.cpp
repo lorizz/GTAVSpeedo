@@ -4,31 +4,23 @@ http://dev-c.com
 (C) Alexander Blade 2015
 */
 
-#include "..\..\ScriptHookV_SDK\inc\main.h"
-
 #include "script.h"
 #include "Util/Paths.h"
 #include "Util/Logger.hpp"
 #include "Util/Versions.h"
-#include "../../GTAVManualTransmission/Gears/Memory/NativeMemory.hpp"
 
 BOOL APIENTRY DllMain(HMODULE hInstance, DWORD reason, LPVOID lpReserved) {
-	mem::init();
 	std::string logFile = Paths::GetModuleFolder(hInstance) + modDir +
 		"\\" + Paths::GetModuleNameWithoutExtension(hInstance) + ".log";
 	logger.SetFile(logFile);
 	Paths::SetOurModuleHandle(hInstance);
 
-	// ReSharper disable once CppDefaultCaseNotHandledInSwitchStatement
 	switch (reason) {
 		case DLL_PROCESS_ATTACH: {
 			scriptRegister(hInstance, ScriptMain);
 			logger.Clear();
 			logger.Write("GTAVSpeedo " + std::string(DISPLAY_VERSION));
 			logger.Write("Game version " + eGameVersionToString(getGameVersion()));
-			if (getGameVersion() < G_VER_1_0_877_1_STEAM) {
-				logger.Write("WARNING: Unsupported game version! Update your game.");
-			}
 			logger.Write("Script registered");
 			break;
 		}
