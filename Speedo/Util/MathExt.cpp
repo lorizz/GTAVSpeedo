@@ -48,3 +48,7 @@ Vector3 GetOffsetInWorldCoords(Vector3 position, Vector3 rotation, Vector3 forwa
 	Vector3 up = Cross(right, forward);
 	return position + (right * offset.x) + (forward * offset.y) + (up * offset.z);
 }
+
+float map(float x, float in_min, float in_max, float out_min, float out_max) {
+	return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}

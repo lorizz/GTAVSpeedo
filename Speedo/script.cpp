@@ -145,7 +145,18 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 
 	displayRPM = lerp(displayRPM, rpm, 10.0f * GAMEPLAY::GET_FRAME_TIME());
 	float rpmRot = displayRPM / 2.0f + 0.125f;
-	float turboRot = turbo / 4.0f + 0.320f;
+	float displayTurboRot = 0.0f;
+	if (turbo < -0.5f ) {
+		displayTurboRot = map(turbo, -1.0f, -0.5f, -1.0f, 0.25f);
+	}
+	else if (turbo <= 0.9f) {
+		displayTurboRot = map(turbo, -0.5f, 0.9f, 0.25f, 0.75f);
+	}
+	else {
+		displayTurboRot = map(turbo, 0.9f, 1.0f, 0.75f, 1.0f);
+	}
+
+	float turboRot = displayTurboRot / 4.0f + 0.320f;
 
 	drawTexture(spriteRPMBg.Id, 0, -9999, 100, 
 		settings.SpeedoSettings.RPMBgSize, static_cast<float>(spriteRPMBg.Height) * (settings.SpeedoSettings.RPMBgSize / static_cast<float>(spriteRPMBg.Width)),
@@ -156,7 +167,7 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 		settings.SpeedoSettings.RPMNumSize, static_cast<float>(spriteRPMNum.Height) * (settings.SpeedoSettings.RPMNumSize / static_cast<float>(spriteRPMNum.Width)),
 		0.5f, 0.5f,
 		settings.SpeedoSettings.RPMNumXpos + offsetX, settings.SpeedoSettings.RPMNumYpos + offsetY,
-		0.0f, screencorrection, 40.0f/255.0f, 168.0f/255.0f, 227.0f/255.0f, 0.8f * speedoalpha);
+		0.0f, screencorrection, 80.0f / 255.0f, 175.0f / 255.0f, 255.0f / 255.0f, 1.0f * speedoalpha);
 	drawTexture(spriteRPMDial.Id, 0, -9990, 100, 
 		settings.SpeedoSettings.RPMDialSize, static_cast<float>(spriteRPMDial.Height) * (settings.SpeedoSettings.RPMDialSize / static_cast<float>(spriteRPMDial.Width)),
 		0.5f, 0.5f,
@@ -177,7 +188,7 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 		settings.SpeedoSettings.TurboNumSize, static_cast<float>(spriteTurboNum.Height) * (settings.SpeedoSettings.TurboNumSize / static_cast<float>(spriteTurboNum.Width)),
 		0.5f, 0.5f,
 		settings.SpeedoSettings.TurboNumXpos + offsetX, settings.SpeedoSettings.TurboNumYpos + offsetY,
-		0.0f, screencorrection, 40.0f / 255.0f, 168.0f / 255.0f, 227.0f / 255.0f, 0.8f*turboalpha);
+		0.0f, screencorrection, 80.0f / 255.0f, 175.0f / 255.0f, 255.0f / 255.0f, 1.0f * turboalpha);
 	drawTexture(spriteTurboDial.Id, 0, -9990, 100,
 		settings.SpeedoSettings.TurboDialSize, static_cast<float>(spriteTurboDial.Height) * (settings.SpeedoSettings.TurboDialSize / static_cast<float>(spriteTurboDial.Width)),
 		0.5f, 0.5f,

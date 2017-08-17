@@ -23,3 +23,4 @@ Vector3 operator * (Vector3 value, float scale);
 Vector3 operator * (float scale, Vector3 vec);
 Vector3 GetOffsetInWorldCoords(Vector3 position, Vector3 rotation, Vector3 forward, Vector3 offset);
 
+float map(float x, float in_min, float in_max, float out_min, float out_max);
