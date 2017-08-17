@@ -2,6 +2,9 @@
 
 GTA V Speedometer
 =========================
+
+[![Build status](https://ci.appveyor.com/api/projects/status/97b6m5xup9onnben?svg=true)](https://ci.appveyor.com/project/E66666666/gtavspeedo)
+
 *Yet another* speedometer! Since other speedo devs have been either unresponsive or unwilling to add stuff, and I myself want to have some stuff added, well, time for my own speedo.
 
 ## Requirements
