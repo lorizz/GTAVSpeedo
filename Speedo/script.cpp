@@ -317,7 +317,7 @@ void update() {
 
 	if (!vehicle || !ENTITY::DOES_ENTITY_EXIST(vehicle) || 
 		playerPed != VEHICLE::GET_PED_IN_VEHICLE_SEAT(vehicle, -1) ||
-		settings.SpeedoSettings.FPVHide && CAM::IS_FIRST_PERSON_AIM_CAM_ACTIVE()) {
+		settings.SpeedoSettings.FPVHide && CAM::GET_FOLLOW_VEHICLE_CAM_VIEW_MODE() == 4) {
 		if (speedoalpha > 0.0f) {
 			speedoalpha -= settings.SpeedoSettings.FadeSpeed;
 		}
