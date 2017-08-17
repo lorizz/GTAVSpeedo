@@ -1,5 +1,8 @@
 #pragma once
 #include <string>
+#include <array>
+
+const int numNOSItems = 6;
 
 struct SpeedoStuff {
 	std::string SpeedoName;
@@ -63,7 +66,14 @@ struct SpeedoStuff {
 	float GearYpos;
 	float GearSize;
 
+	float NOSTextXpos;
+	float NOSTextYpos;
+	float NOSTextSize;
 
+	// TODO - Group them together and translate by size???
+	std::array<float, numNOSItems> NOSXpos;
+	std::array<float, numNOSItems> NOSYpos;
+	std::array<float, numNOSItems> NOSSize;
 };
 
 enum class UnitType {

@@ -111,6 +111,9 @@
     <ClInclude Include="..\thirdparty\lodepng\lodepng_util.h">
       <Filter>Thirdparty</Filter>
     </ClInclude>
+    <ClInclude Include="newNatives.h">
+      <Filter>Util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">

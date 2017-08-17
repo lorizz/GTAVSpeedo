@@ -51,6 +51,7 @@ void update_menu() {
 		menu.MenuOption("Turbo", "turboposmenu");
 		menu.MenuOption("Speed", "speedposmenu");
 		menu.MenuOption("Gear", "gearposmenu");
+		menu.MenuOption("NOS", "nosposmenu");
 	}
 
 	if (menu.CurrentMenu("rpmposmenu")) {
@@ -111,6 +112,26 @@ void update_menu() {
 		menu.FloatOption("GearXpos", settings.SpeedoSettings.GearXpos, 0.0f, 1.0f, 0.001f);
 		menu.FloatOption("GearYpos", settings.SpeedoSettings.GearYpos, 0.0f, 1.0f, 0.001f);
 		menu.FloatOption("GearSize", settings.SpeedoSettings.GearSize, 0.0f, 1.0f, 0.001f);
+	}
+
+	// fuck me
+	if (menu.CurrentMenu("nosposmenu")) {
+		menu.Title("NOS");
+		menu.Subtitle(DISPLAY_VERSION, false);
+
+		menu.FloatOption("NOSTextXpos", settings.SpeedoSettings.NOSTextXpos, 0.0f, 1.0f, 0.001f);
+		menu.FloatOption("NOSTextYpos", settings.SpeedoSettings.NOSTextYpos, 0.0f, 1.0f, 0.001f);
+		menu.FloatOption("NOSTextSize", settings.SpeedoSettings.NOSTextSize, 0.0f, 1.0f, 0.001f);
+
+		menu.FloatOption("NOS0Size", settings.SpeedoSettings.NOSSize[0], 0.0f, 1.0f, 0.001f);
+		for (int i = 1; i < numNOSItems; i++) {
+			settings.SpeedoSettings.NOSSize[i] = settings.SpeedoSettings.NOSSize[0];
+		}
+
+		for (int i = 0; i < numNOSItems; i++) {
+			menu.FloatOption("NOS"+std::to_string(i)+"Xpos", settings.SpeedoSettings.NOSXpos[i], 0.0f, 1.0f, 0.001f);
+			menu.FloatOption("NOS"+std::to_string(i)+"Ypos", settings.SpeedoSettings.NOSYpos[i], 0.0f, 1.0f, 0.001f);
+		}
 	}
 
 	menu.EndMenu();

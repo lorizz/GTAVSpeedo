@@ -81,6 +81,15 @@ void ScriptSettings::SaveGeneral() const {
 	settingsGeneral.SetDoubleValue("SPEEDO", "GearYpos", SpeedoSettings.GearYpos);
 	settingsGeneral.SetDoubleValue("SPEEDO", "GearSize", SpeedoSettings.GearSize);
 
+	settingsGeneral.SetDoubleValue("SPEEDO", "NOSTextXpos", SpeedoSettings.NOSTextXpos);
+	settingsGeneral.SetDoubleValue("SPEEDO", "NOSTextYpos", SpeedoSettings.NOSTextYpos);
+	settingsGeneral.SetDoubleValue("SPEEDO", "NOSTextSize", SpeedoSettings.NOSTextSize);
+
+	for (int i = 0; i < numNOSItems; i++) {
+		settingsGeneral.SetDoubleValue("SPEEDO", ("NOS"+std::to_string(i)+"Xpos").c_str(), SpeedoSettings.NOSXpos[i]);
+		settingsGeneral.SetDoubleValue("SPEEDO", ("NOS"+std::to_string(i)+"Ypos").c_str(), SpeedoSettings.NOSYpos[i]);
+		settingsGeneral.SetDoubleValue("SPEEDO", ("NOS"+std::to_string(i)+"Size").c_str(), SpeedoSettings.NOSSize[i]);
+	}
 	settingsGeneral.SaveFile(settingsGeneralFile.c_str());
 }
 
@@ -151,4 +160,14 @@ void ScriptSettings::parseSettingsGeneral() {
 	SpeedoSettings.GearXpos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "GearXpos"));
 	SpeedoSettings.GearYpos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "GearYpos"));
 	SpeedoSettings.GearSize = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "GearSize"));
+
+	SpeedoSettings.NOSTextXpos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "NOSTextXpos"));
+	SpeedoSettings.NOSTextYpos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "NOSTextYpos"));
+	SpeedoSettings.NOSTextSize = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "NOSTextSize"));
+
+	for (int i = 0; i < numNOSItems; i++) {
+		SpeedoSettings.NOSXpos[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("NOS" + std::to_string(i) + "Xpos").c_str());
+		SpeedoSettings.NOSYpos[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("NOS" + std::to_string(i) + "Ypos").c_str());
+		SpeedoSettings.NOSSize[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("NOS" + std::to_string(i) + "Size").c_str());
+	}
 }
