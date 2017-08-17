@@ -134,29 +134,16 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 			nosVal = DECORATOR::_DECOR_GET_FLOAT(vehicle, (char*)decorNOSLevel);
 		}
 	}
-
 	if (!engineOn) rpm = 0.0f;
 
-	// Background and dials
 	float screencorrection = invoke<float>(0xF1307EF624A80D87, FALSE);
 	float sizeMult = settings.SpeedoSettings.SpeedoSize;
 	float offsetX = settings.SpeedoSettings.SpeedoXpos;
 	float offsetY = settings.SpeedoSettings.SpeedoYpos;
 
+	// RPM
 	displayRPM = lerp(displayRPM, rpm, 10.0f * GAMEPLAY::GET_FRAME_TIME());
 	float rpmRot = displayRPM / 2.0f + 0.125f;
-	float displayTurboRot = 0.0f;
-	if (turbo < -0.5f ) {
-		displayTurboRot = map(turbo, -1.0f, -0.5f, -1.0f, 0.25f);
-	}
-	else if (turbo <= 0.9f) {
-		displayTurboRot = map(turbo, -0.5f, 0.9f, 0.25f, 0.75f);
-	}
-	else {
-		displayTurboRot = map(turbo, 0.9f, 1.0f, 0.75f, 1.0f);
-	}
-
-	float turboRot = displayTurboRot / 4.0f + 0.320f;
 
 	drawTexture(spriteRPMBg.Id, 0, -9999, 100, 
 		settings.SpeedoSettings.RPMBgSize, static_cast<float>(spriteRPMBg.Height) * (settings.SpeedoSettings.RPMBgSize / static_cast<float>(spriteRPMBg.Width)),
@@ -178,6 +165,20 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 		0.5f, 0.5f,
 		settings.SpeedoSettings.RPMRedXpos + offsetX, settings.SpeedoSettings.RPMRedYpos + offsetY,
 		0.0f, screencorrection, 1.0f, 0.0f, 0.0f, 0.6f* speedoalpha);
+
+	// Turbo
+	float displayTurboRot;
+	if (turbo < -0.5f) {
+		displayTurboRot = map(turbo, -1.0f, -0.5f, -1.0f, 0.25f);
+	}
+	else if (turbo <= 0.9f) {
+		displayTurboRot = map(turbo, -0.5f, 0.9f, 0.25f, 0.75f);
+	}
+	else {
+		displayTurboRot = map(turbo, 0.9f, 1.0f, 0.75f, 1.0f);
+	}
+
+	float turboRot = displayTurboRot / 4.0f + 0.320f;
 
 	drawTexture(spriteTurboBg.Id, 0, -9999, 100,
 		settings.SpeedoSettings.TurboBgSize, static_cast<float>(spriteTurboBg.Height) * (settings.SpeedoSettings.TurboBgSize / static_cast<float>(spriteTurboBg.Width)),
