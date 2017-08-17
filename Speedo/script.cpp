@@ -298,10 +298,7 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 		int i = 0;
 		float portion = maxVal / numNOSItems;
 		for (auto sprite : spritesNOS) {
-			float max = maxVal - portion * i;
 			float min = maxVal - portion * (i + 1);
-
-			if (val < min) val = min;
 
 			float res = (val - min) / portion;
 			if (res > 1.0f) res = 1.0f;
