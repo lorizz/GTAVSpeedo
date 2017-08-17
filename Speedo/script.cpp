@@ -187,33 +187,33 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 		settings.SpeedoSettings.TurboBgSize, static_cast<float>(spriteTurboBg.Height) * (settings.SpeedoSettings.TurboBgSize / static_cast<float>(spriteTurboBg.Width)),
 		0.5f, 0.5f,
 		settings.SpeedoSettings.TurboBgXpos + offsetX, settings.SpeedoSettings.TurboBgYpos + offsetY,
-		0.0f, screencorrection, 1.0f, 1.0f, 1.0f, 0.75f*turboalpha);
+		0.0f, screencorrection, 1.0f, 1.0f, 1.0f, 0.75f*turboalpha * speedoalpha);
 	drawTexture(spriteTurboNum.Id, 0, -9998, 100,
 		settings.SpeedoSettings.TurboNumSize, static_cast<float>(spriteTurboNum.Height) * (settings.SpeedoSettings.TurboNumSize / static_cast<float>(spriteTurboNum.Width)),
 		0.5f, 0.5f,
 		settings.SpeedoSettings.TurboNumXpos + offsetX, settings.SpeedoSettings.TurboNumYpos + offsetY,
-		0.0f, screencorrection, 80.0f / 255.0f, 175.0f / 255.0f, 255.0f / 255.0f, 1.0f * turboalpha);
+		0.0f, screencorrection, 80.0f / 255.0f, 175.0f / 255.0f, 255.0f / 255.0f, 1.0f * turboalpha* speedoalpha);
 	drawTexture(spriteTurboDial.Id, 0, -9990, 100,
 		settings.SpeedoSettings.TurboDialSize, static_cast<float>(spriteTurboDial.Height) * (settings.SpeedoSettings.TurboDialSize / static_cast<float>(spriteTurboDial.Width)),
 		0.5f, 0.5f,
 		settings.SpeedoSettings.TurboDialXpos + offsetX, settings.SpeedoSettings.TurboDialYpos + offsetY,
-		turboRot, screencorrection, 1.0f, 1.0f, 1.0f, 0.9f * turboalpha);
+		turboRot, screencorrection, 1.0f, 1.0f, 1.0f, 0.9f * turboalpha* speedoalpha);
 
 	drawTexture(spriteTurboText.Id, 0, -9990, 100,
 		settings.SpeedoSettings.TurboTextSize, static_cast<float>(spriteTurboText.Height) * (settings.SpeedoSettings.TurboTextSize / static_cast<float>(spriteTurboText.Width)),
 		0.5f, 0.5f,
 		settings.SpeedoSettings.TurboTextXpos + offsetX, settings.SpeedoSettings.TurboTextYpos + offsetY,
-		0.0f, screencorrection, 0.54f, 0.69f, 0.93f, 1.0f*turboalpha);
+		0.0f, screencorrection, 0.54f, 0.69f, 0.93f, 1.0f*turboalpha* speedoalpha);
 	drawTexture(spriteTurboRed0.Id, 0, -9997, 100,
 		settings.SpeedoSettings.TurboRed0Size, static_cast<float>(spriteTurboRed0.Height) * (settings.SpeedoSettings.TurboRed0Size / static_cast<float>(spriteTurboRed0.Width)),
 		0.5f, 0.5f,
 		settings.SpeedoSettings.TurboRed0Xpos + offsetX, settings.SpeedoSettings.TurboRed0Ypos + offsetY,
-		0.0f, screencorrection, 1.0f, 0.0f, 0.0f, 0.6f*turboalpha);
+		0.0f, screencorrection, 1.0f, 0.0f, 0.0f, 0.6f*turboalpha* speedoalpha);
 	drawTexture(spriteTurboRed1.Id, 0, -9997, 100,
 		settings.SpeedoSettings.TurboRed1Size, static_cast<float>(spriteTurboRed1.Height) * (settings.SpeedoSettings.TurboRed1Size / static_cast<float>(spriteTurboRed1.Width)),
 		0.5f, 0.5f,
 		settings.SpeedoSettings.TurboRed1Xpos + offsetX, settings.SpeedoSettings.TurboRed1Ypos + offsetY,
-		0.0f, screencorrection, 1.0f, 0.0f, 0.0f, 0.6f*turboalpha);
+		0.0f, screencorrection, 1.0f, 0.0f, 0.0f, 0.6f*turboalpha* speedoalpha);
 
 	// Speed unit
 	SpriteInfo spriteUnit;
@@ -229,7 +229,7 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 		settings.SpeedoSettings.UnitSize, static_cast<float>(spriteUnit.Height) * (settings.SpeedoSettings.UnitSize / static_cast<float>(spriteUnit.Width)),
 		0.5f, 0.5f,
 		settings.SpeedoSettings.UnitXpos + offsetX, settings.SpeedoSettings.UnitYpos + offsetY,
-		0.0f, screencorrection, 0.54f, 0.69f, 0.93f, 1.0f);
+		0.0f, screencorrection, 0.54f, 0.69f, 0.93f, 1.0f* speedoalpha);
 
 	// Speed numbers
 	std::stringstream speedoFormat;
@@ -262,7 +262,7 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 			settings.SpeedoSettings.SpeedSize, static_cast<float>(si.Height) * (settings.SpeedoSettings.SpeedSize / static_cast<float>(si.Width)),
 			0.5f, 0.5f,
 			settings.SpeedoSettings.SpeedXpos + offsetX + settings.SpeedoSettings.SpeedSize * charNum, settings.SpeedoSettings.SpeedYpos + offsetY,
-			0.0f, screencorrection, 0.0f, 0.5f, 0.74f, 1.0f);
+			0.0f, screencorrection, 0.0f, 0.5f, 0.74f, 1.0f * speedoalpha);
 		//showText(settings.SpeedoSettings.SpeedXpos + offsetX + settings.SpeedoSettings.SpeedSize * charNum, settings.SpeedoSettings.SpeedYpos + offsetY, 1.0f, std::string(1, c));
 		charNum++;
 	}
@@ -293,7 +293,7 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 		settings.SpeedoSettings.GearSize, static_cast<float>(spriteGear.Height) * (settings.SpeedoSettings.GearSize / static_cast<float>(spriteGear.Width)),
 		0.5f, 0.5f,
 		settings.SpeedoSettings.GearXpos + offsetX, settings.SpeedoSettings.GearYpos + offsetY,
-		0.0f, screencorrection, c.r, c.g, c.b, c.a);
+		0.0f, screencorrection, c.r, c.g, c.b, c.a * speedoalpha);
 
 	// NOS level
 	if (hasBoost || hasNOS) {
@@ -313,7 +313,7 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 			settings.SpeedoSettings.NOSTextSize, static_cast<float>(spriteNOSText.Height) * (settings.SpeedoSettings.NOSTextSize / static_cast<float>(spriteNOSText.Width)),
 			0.5f, 0.5f,
 			settings.SpeedoSettings.NOSTextXpos + offsetX, settings.SpeedoSettings.NOSTextYpos + offsetY,
-			0.0f, screencorrection, 1.0f, 1.0f, 1.0f, 1.0f);
+			0.0f, screencorrection, 1.0f, 1.0f, 1.0f, 1.0f * speedoalpha);
 
 		int i = 0;
 		float portion = maxVal / numNOSItems;
@@ -328,7 +328,7 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 				settings.SpeedoSettings.NOSSize[i], static_cast<float>(sprite.Height) * (settings.SpeedoSettings.NOSSize[i] / static_cast<float>(sprite.Width)),
 				0.5f, 0.5f,
 				settings.SpeedoSettings.NOSXpos[i] + offsetX, settings.SpeedoSettings.NOSYpos[i] + offsetY,
-				0.0f, screencorrection, 0.0f, 1.0f, 0.0f, baseAlpha * res);
+				0.0f, screencorrection, 0.0f, 1.0f, 0.0f, baseAlpha * res * speedoalpha);
 			i++;
 		}
 	}
