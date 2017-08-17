@@ -19,6 +19,7 @@
 #include "ScriptSettings.hpp"
 #include "newNatives.h"
 #include "Util/Versions.h"
+#include <chrono>
 
 const char* decorMTGear             = "mt_gear";
 const char* decorMTNeutral          = "mt_neutral";
@@ -90,6 +91,8 @@ int prevNotification = 0;
 
 float speedoalpha = 0.0f;
 float turboalpha = 0.0f;
+
+long long previousDisplayTime;
 
 /*
  * Was it really necessary to distribute your speedometer sprites 
@@ -234,6 +237,11 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 	std::string speedoTxt = speedoFormat.str();
 
 	int charNum = 0;
+
+	auto now = std::chrono::steady_clock::now().time_since_epoch().count();
+	auto displayTime = now - previousDisplayTime;
+	previousDisplayTime = now;
+
 	for (char c : speedoTxt) {
 		SpriteInfo si;
 		switch (c) {
@@ -250,7 +258,7 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 			default: si = spriteNE; break;
 		}
 
-		drawTexture(si.Id, charNum, -9990, static_cast<int>(GAMEPLAY::GET_FRAME_TIME() * 1500.0f),
+		drawTexture(si.Id, charNum, -9990, static_cast<int>(1.5 * displayTime / 1e6),
 			settings.SpeedoSettings.SpeedSize, static_cast<float>(si.Height) * (settings.SpeedoSettings.SpeedSize / static_cast<float>(si.Width)),
 			0.5f, 0.5f,
 			settings.SpeedoSettings.SpeedXpos + offsetX + settings.SpeedoSettings.SpeedSize * charNum, settings.SpeedoSettings.SpeedYpos + offsetY,
@@ -281,7 +289,7 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 		c.b = 0.25f;
 	}
 
-	drawTexture(spriteGear.Id, charNum, -9990, static_cast<int>(GAMEPLAY::GET_FRAME_TIME() * 1500.0f),
+	drawTexture(spriteGear.Id, charNum, -9990, 100,
 		settings.SpeedoSettings.GearSize, static_cast<float>(spriteGear.Height) * (settings.SpeedoSettings.GearSize / static_cast<float>(spriteGear.Width)),
 		0.5f, 0.5f,
 		settings.SpeedoSettings.GearXpos + offsetX, settings.SpeedoSettings.GearYpos + offsetY,
@@ -504,5 +512,6 @@ void main() {
 
 void ScriptMain() {
 	srand(GetTickCount());
+	previousDisplayTime = std::chrono::steady_clock::now().time_since_epoch().count();
 	main();
 }
