@@ -7,6 +7,8 @@ GTA V Speedometer
 
 *Yet another* speedometer! Since other speedo devs have been either unresponsive or unwilling to add stuff, and I myself want to have some stuff added, well, time for my own speedo.
 
+![Preview](./preview.jpg)
+
 ## Requirements
 * Grand Theft Auto V
 * [ScriptHookV by Alexander Blade](http://www.dev-c.com/gtav/scripthookv/)
