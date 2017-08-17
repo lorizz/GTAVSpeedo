@@ -20,6 +20,12 @@
 #include "newNatives.h"
 #include "Util/Versions.h"
 
+const char* decorMTGear             = "mt_gear";
+const char* decorMTNeutral          = "mt_neutral";
+const char* decorMTShiftIndicator   = "mt_shift_indicator";
+const char* decorNOS                = "ikt_speedo_nos";
+const char* decorNOSLevel           = "ikt_speedo_nos_level";
+
 struct WTFABColor {
 	float r;
 	float g;
@@ -68,12 +74,6 @@ SpriteInfo spriteMPH;
 
 SpriteInfo spriteNOSText;
 std::vector<SpriteInfo> spritesNOS;
-//SpriteInfo spriteNOS0;
-//SpriteInfo spriteNOS1;
-//SpriteInfo spriteNOS2;
-//SpriteInfo spriteNOS3;
-//SpriteInfo spriteNOS4;
-//SpriteInfo spriteNOS5;
 
 float displayRPM = 0.0f;
 
@@ -103,8 +103,10 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 	int gear = 1;
 	bool neutral = true;
 	bool shift_indicator = false;
+	bool hasNOS = false;
 	bool hasBoost = false;
 	float boostVal = 0.0f;
+	float nosVal = 0.0f;
 	if (!vehicle || !ENTITY::DOES_ENTITY_EXIST(vehicle) ||
 		playerPed != VEHICLE::GET_PED_IN_VEHICLE_SEAT(vehicle, -1)) {
 		// do nothing and im not gonna change this thing i copy-pasted
@@ -121,11 +123,15 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 		turbo = ext.GetTurbo(vehicle);
 		rpm = ext.GetCurrentRPM(vehicle);
 		gear = ext.GetGearCurr(vehicle);
-		neutral = DECORATOR::DECOR_GET_INT(vehicle, "mt_neutral");
-		shift_indicator = DECORATOR::DECOR_GET_INT(vehicle, "mt_shift_indicator") > 0;
+		neutral = DECORATOR::DECOR_GET_INT(vehicle, (char*)decorMTNeutral);
+		shift_indicator = DECORATOR::DECOR_GET_INT(vehicle, (char*)decorMTShiftIndicator) > 0;
 		if (getGameVersion() >= G_VER_1_0_944_2_STEAM) {
 			hasBoost = VEHICLE::_HAS_VEHICLE_ROCKET_BOOST(vehicle);
 			boostVal = ext.GetRocketBoostCharge(vehicle);
+		}
+		if (DECORATOR::DECOR_GET_INT(vehicle, (char*)decorNOS) == 1) {
+			hasNOS = true;
+			nosVal = DECORATOR::_DECOR_GET_FLOAT(vehicle, (char*)decorNOSLevel);
 		}
 	}
 
@@ -270,7 +276,18 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 		0.0f, screencorrection, c.r, c.g, c.b, c.a);
 
 	// NOS level
-	if (hasBoost) {
+	if (hasBoost || hasNOS) {
+		float maxVal;
+		float val;
+		if (hasBoost) {
+			maxVal = 1.25f;
+			val = boostVal;
+		}
+		else {
+			maxVal = 1.0f;
+			val = nosVal;
+		}
+
 		float baseAlpha = 1.0f;
 		drawTexture(spriteNOSText.Id, 0, -9998, 100,
 			settings.SpeedoSettings.NOSTextSize, static_cast<float>(spriteNOSText.Height) * (settings.SpeedoSettings.NOSTextSize / static_cast<float>(spriteNOSText.Width)),
@@ -279,13 +296,11 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 			0.0f, screencorrection, 1.0f, 1.0f, 1.0f, 1.0f);
 
 		int i = 0;
-		float maxVal = 1.25f;
 		float portion = maxVal / numNOSItems;
 		for (auto sprite : spritesNOS) {
 			float max = maxVal - portion * i;
 			float min = maxVal - portion * (i + 1);
 
-			float val = boostVal;
 			if (val < min) val = min;
 
 			float res = (val - min) / portion;
@@ -317,6 +332,7 @@ void update() {
 
 	if (!vehicle || !ENTITY::DOES_ENTITY_EXIST(vehicle) || 
 		playerPed != VEHICLE::GET_PED_IN_VEHICLE_SEAT(vehicle, -1) ||
+		PED::IS_PED_RUNNING_MOBILE_PHONE_TASK(playerPed) ||
 		settings.SpeedoSettings.FPVHide && CAM::GET_FOLLOW_VEHICLE_CAM_VIEW_MODE() == 4) {
 		if (speedoalpha > 0.0f) {
 			speedoalpha -= settings.SpeedoSettings.FadeSpeed;
@@ -357,6 +373,23 @@ enum eDecorType
 
 // @Unknown Modder
 BYTE* g_bIsDecorRegisterLockedPtr = nullptr;
+
+void registerDecorator(const char *thing, eDecorType type) {
+	std::string strType = "?????";
+	switch(type) {
+	case DECOR_TYPE_FLOAT: strType = "float"; break;
+	case DECOR_TYPE_BOOL: strType = "bool"; break;
+	case DECOR_TYPE_INT: strType = "int"; break;
+	case DECOR_TYPE_UNK: strType = "unknown"; break;
+	case DECOR_TYPE_TIME: strType = "time"; break;
+	}
+
+	if (!DECORATOR::DECOR_IS_REGISTERED_AS_TYPE((char*)thing, type)) {
+		DECORATOR::DECOR_REGISTER((char*)thing, type);
+		logger.Write("DECOR: Registered \""+ std::string(thing)+"\" as " + strType);
+	}
+}
+
 bool setupGlobals() {
 	auto addr = mem::FindPattern("\x40\x53\x48\x83\xEC\x20\x80\x3D\x00\x00\x00\x00\x00\x8B\xDA\x75\x29",
 								 "xxxxxxxx????xxxxx");
@@ -366,18 +399,11 @@ bool setupGlobals() {
 	g_bIsDecorRegisterLockedPtr = (BYTE*)(addr + *(int*)(addr + 8) + 13);
 	*g_bIsDecorRegisterLockedPtr = 0;
 
-	if (!DECORATOR::DECOR_IS_REGISTERED_AS_TYPE("mt_shift_indicator", DECOR_TYPE_INT)) {
-		DECORATOR::DECOR_REGISTER("mt_shift_indicator", DECOR_TYPE_INT);
-		logger.Write("DECOR: Registered \"mt_shift_indicator\" as DECOR_TYPE_INT");
-	}
-	if (!DECORATOR::DECOR_IS_REGISTERED_AS_TYPE("mt_gear", DECOR_TYPE_INT)) {
-		DECORATOR::DECOR_REGISTER("mt_gear", DECOR_TYPE_INT);
-		logger.Write("DECOR: Registered \"mt_gear\" as DECOR_TYPE_INT");
-	}
-	if (!DECORATOR::DECOR_IS_REGISTERED_AS_TYPE("mt_neutral", DECOR_TYPE_INT)) {
-		DECORATOR::DECOR_REGISTER("mt_neutral", DECOR_TYPE_INT);
-		logger.Write("DECOR: Registered \"mt_neutral\" as DECOR_TYPE_INT");
-	}
+	registerDecorator(decorMTShiftIndicator, DECOR_TYPE_INT);
+	registerDecorator(decorMTGear, DECOR_TYPE_INT);
+	registerDecorator(decorMTNeutral, DECOR_TYPE_INT);
+	registerDecorator(decorNOS, DECOR_TYPE_INT);
+	registerDecorator(decorNOSLevel, DECOR_TYPE_FLOAT);
 
 	*g_bIsDecorRegisterLockedPtr = 1;
 	return true;
