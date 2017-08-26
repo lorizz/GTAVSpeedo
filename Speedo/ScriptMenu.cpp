@@ -31,7 +31,9 @@ void update_menu() {
 	/* Yes hello I am root */
 	if (menu.CurrentMenu("mainmenu")) {
 		menu.Title("Speedometer");
-		menu.Subtitle(DISPLAY_VERSION, false);
+		menu.Subtitle(DISPLAY_VERSION);
+		menu.BoolOption("Enable", settings.Enable);
+
 		if (menu.Option("Reload pos") ) {
 			settings.Read();
 		}
@@ -56,7 +58,7 @@ void update_menu() {
 
 	if (menu.CurrentMenu("rpmposmenu")) {
 		menu.Title("RPM");
-		menu.Subtitle(DISPLAY_VERSION, false);
+		menu.Subtitle(DISPLAY_VERSION);
 		menu.FloatOption("RPMBgXpos", settings.SpeedoSettings.RPMBgXpos, 0.0f, 1.0f, 0.001f);
 		menu.FloatOption("RPMBgYpos", settings.SpeedoSettings.RPMBgYpos, 0.0f, 1.0f, 0.001f);
 		menu.FloatOption("RPMBgSize", settings.SpeedoSettings.RPMBgSize, 0.0f, 1.0f, 0.001f);
@@ -73,7 +75,7 @@ void update_menu() {
 
 	if (menu.CurrentMenu("turboposmenu")) {
 		menu.Title("Turbo");
-		menu.Subtitle(DISPLAY_VERSION, false);
+		menu.Subtitle(DISPLAY_VERSION);
 		menu.FloatOption("TurboBgXpos", settings.SpeedoSettings.TurboBgXpos, 0.0f, 1.0f, 0.001f);
 		menu.FloatOption("TurboBgYpos", settings.SpeedoSettings.TurboBgYpos, 0.0f, 1.0f, 0.001f);
 		menu.FloatOption("TurboBgSize", settings.SpeedoSettings.TurboBgSize, 0.0f, 1.0f, 0.001f);
@@ -96,7 +98,7 @@ void update_menu() {
 
 	if (menu.CurrentMenu("speedposmenu")) {
 		menu.Title("Speed");
-		menu.Subtitle(DISPLAY_VERSION, false);
+		menu.Subtitle(DISPLAY_VERSION);
 		menu.FloatOption("SpeedXpos", settings.SpeedoSettings.SpeedXpos, 0.0f, 1.0f, 0.001f);
 		menu.FloatOption("SpeedYpos", settings.SpeedoSettings.SpeedYpos, 0.0f, 1.0f, 0.001f);
 		menu.FloatOption("SpeedSize", settings.SpeedoSettings.SpeedSize, 0.0f, 1.0f, 0.001f);
@@ -108,7 +110,7 @@ void update_menu() {
 
 	if (menu.CurrentMenu("gearposmenu")) {
 		menu.Title("Gear");
-		menu.Subtitle(DISPLAY_VERSION, false);
+		menu.Subtitle(DISPLAY_VERSION);
 		menu.FloatOption("GearXpos", settings.SpeedoSettings.GearXpos, 0.0f, 1.0f, 0.001f);
 		menu.FloatOption("GearYpos", settings.SpeedoSettings.GearYpos, 0.0f, 1.0f, 0.001f);
 		menu.FloatOption("GearSize", settings.SpeedoSettings.GearSize, 0.0f, 1.0f, 0.001f);
@@ -117,7 +119,7 @@ void update_menu() {
 	// fuck me
 	if (menu.CurrentMenu("nosposmenu")) {
 		menu.Title("NOS");
-		menu.Subtitle(DISPLAY_VERSION, false);
+		menu.Subtitle(DISPLAY_VERSION);
 
 		menu.FloatOption("NOSTextXpos", settings.SpeedoSettings.NOSTextXpos, 0.0f, 1.0f, 0.001f);
 		menu.FloatOption("NOSTextYpos", settings.SpeedoSettings.NOSTextYpos, 0.0f, 1.0f, 0.001f);

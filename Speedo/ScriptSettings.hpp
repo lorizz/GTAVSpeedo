@@ -87,6 +87,7 @@ public:
 	void SetFiles(const std::string &general);
 	void Read();
 	void SaveGeneral() const;
+	bool Enable;
 	SpeedoStuff SpeedoSettings;
 	UnitType Unit;
 private:

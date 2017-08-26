@@ -19,7 +19,8 @@ void ScriptSettings::SaveGeneral() const {
 	CSimpleIniA settingsGeneral;
 	settingsGeneral.SetUnicode();
 	settingsGeneral.LoadFile(settingsGeneralFile.c_str());
-	
+	settingsGeneral.SetBoolValue("SPEEDO", "Enable", Enable);
+
 	settingsGeneral.SetValue("SPEEDO", "Name", SpeedoSettings.SpeedoName.c_str());
 
 	settingsGeneral.SetBoolValue("SPEEDO", "FPVHide", SpeedoSettings.FPVHide);
@@ -100,6 +101,7 @@ void ScriptSettings::parseSettingsGeneral() {
 	CSimpleIniA settingsGeneral;
 	settingsGeneral.SetUnicode();
 	settingsGeneral.LoadFile(settingsGeneralFile.c_str());
+	Enable = settingsGeneral.GetValue("SPEEDO", "Enable");
 
 	SpeedoSettings.SpeedoName = settingsGeneral.GetValue("SPEEDO", "Name");
 	SpeedoSettings.FPVHide = static_cast<float>(settingsGeneral.GetBoolValue("SPEEDO", "FPVHide", false));
