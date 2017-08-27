@@ -54,6 +54,9 @@ void update_menu() {
 		menu.MenuOption("Speed", "speedposmenu");
 		menu.MenuOption("Gear", "gearposmenu");
 		menu.MenuOption("NOS", "nosposmenu");
+		if (menu.Option("NORMALIZE!")) {
+			settings.Normalize(settings.SpeedoSettings);
+		}
 	}
 
 	if (menu.CurrentMenu("rpmposmenu")) {

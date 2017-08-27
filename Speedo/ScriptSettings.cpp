@@ -94,6 +94,86 @@ void ScriptSettings::SaveGeneral() const {
 	settingsGeneral.SaveFile(settingsGeneralFile.c_str());
 }
 
+void ScriptSettings::Normalize(SpeedoStuff &coords) {
+	float minX = 1.0f;
+	float minY = 1.0f;
+
+	minX > coords.RPMBgXpos ? minX = coords.RPMBgXpos : minX = minX;
+	minX > coords.RPMNumXpos ? minX = coords.RPMNumXpos : minX = minX;
+	minX > coords.RPMDialXpos ? minX = coords.RPMDialXpos : minX = minX;
+	minX > coords.RPMRedXpos ? minX = coords.RPMRedXpos : minX = minX;
+	minX > coords.TurboBgXpos ? minX = coords.TurboBgXpos : minX = minX;
+	minX > coords.TurboNumXpos ? minX = coords.TurboNumXpos : minX = minX;
+	minX > coords.TurboTextXpos ? minX = coords.TurboTextXpos : minX = minX;
+	minX > coords.TurboDialXpos ? minX = coords.TurboDialXpos : minX = minX;
+	minX > coords.TurboRed0Xpos ? minX = coords.TurboRed0Xpos : minX = minX;
+	minX > coords.TurboRed1Xpos ? minX = coords.TurboRed1Xpos : minX = minX;
+	minX > coords.SpeedXpos ? minX = coords.SpeedXpos : minX = minX;
+	minX > coords.UnitXpos ? minX = coords.UnitXpos : minX = minX;
+	minX > coords.GearXpos ? minX = coords.GearXpos : minX = minX;
+	minX > coords.NOSTextXpos ? minX = coords.NOSTextXpos : minX = minX;
+	for (int i = 0; i < numNOSItems; i++) {
+		minX > coords.NOSXpos[i] ? minX = coords.NOSXpos[i] : minX = minX;
+	}
+
+
+	minY > coords.RPMBgYpos ? minY = coords.RPMBgYpos : minY = minY;
+	minY > coords.RPMNumYpos ? minY = coords.RPMNumYpos : minY = minY;
+	minY > coords.RPMDialYpos ? minY = coords.RPMDialYpos : minY = minY;
+	minY > coords.RPMRedYpos ? minY = coords.RPMRedYpos : minY = minY;
+	minY > coords.TurboBgYpos ? minY = coords.TurboBgYpos : minY = minY;
+	minY > coords.TurboNumYpos ? minY = coords.TurboNumYpos : minY = minY;
+	minY > coords.TurboTextYpos ? minY = coords.TurboTextYpos : minY = minY;
+	minY > coords.TurboDialYpos ? minY = coords.TurboDialYpos : minY = minY;
+	minY > coords.TurboRed0Ypos ? minY = coords.TurboRed0Ypos : minY = minY;
+	minY > coords.TurboRed1Ypos ? minY = coords.TurboRed1Ypos : minY = minY;
+	minY > coords.SpeedYpos ? minY = coords.SpeedYpos : minY = minY;
+	minY > coords.UnitYpos ? minY = coords.UnitYpos : minY = minY;
+	minY > coords.GearYpos ? minY = coords.GearYpos : minY = minY;
+	minY > coords.NOSTextYpos ? minY = coords.NOSTextYpos : minY = minY;
+	for (int i = 0; i < numNOSItems; i++) {
+		minY > coords.NOSYpos[i] ? minY = coords.NOSYpos[i] : minY = minY;
+	}
+
+	coords.RPMBgXpos = coords.RPMBgXpos - minX;
+	coords.RPMNumXpos = coords.RPMNumXpos - minX;
+	coords.RPMDialXpos = coords.RPMDialXpos - minX;
+	coords.RPMRedXpos = coords.RPMRedXpos - minX;
+	coords.TurboBgXpos = coords.TurboBgXpos - minX;
+	coords.TurboNumXpos = coords.TurboNumXpos - minX;
+	coords.TurboTextXpos = coords.TurboTextXpos - minX;
+	coords.TurboDialXpos = coords.TurboDialXpos - minX;
+	coords.TurboRed0Xpos = coords.TurboRed0Xpos - minX;
+	coords.TurboRed1Xpos = coords.TurboRed1Xpos - minX;
+	coords.SpeedXpos = coords.SpeedXpos - minX;
+	coords.UnitXpos = coords.UnitXpos - minX;
+	coords.GearXpos = coords.GearXpos - minX;
+	coords.NOSTextXpos = coords.NOSTextXpos - minX;
+	for (int i = 0; i < numNOSItems; i++) {
+		coords.NOSXpos[i] = coords.NOSXpos[i] - minX;
+	}
+
+	coords.RPMBgYpos = coords.RPMBgYpos - minY;
+	coords.RPMNumYpos = coords.RPMNumYpos - minY;
+	coords.RPMDialYpos = coords.RPMDialYpos - minY;
+	coords.RPMRedYpos = coords.RPMRedYpos - minY;
+	coords.TurboBgYpos = coords.TurboBgYpos - minY;
+	coords.TurboNumYpos = coords.TurboNumYpos - minY;
+	coords.TurboTextYpos = coords.TurboTextYpos - minY;
+	coords.TurboDialYpos = coords.TurboDialYpos - minY;
+	coords.TurboRed0Ypos = coords.TurboRed0Ypos - minY;
+	coords.TurboRed1Ypos = coords.TurboRed1Ypos - minY;
+	coords.SpeedYpos = coords.SpeedYpos - minY;
+	coords.UnitYpos = coords.UnitYpos - minY;
+	coords.GearYpos = coords.GearYpos - minY;
+	coords.NOSTextYpos = coords.NOSTextYpos - minY;
+	for (int i = 0; i < numNOSItems; i++) {
+		coords.NOSYpos[i] = coords.NOSYpos[i] - minY;
+	}
+
+	SaveGeneral();
+}
+
 void ScriptSettings::parseSettingsGeneral() {
 	if (!FileExists(settingsGeneralFile)) {
 		SaveGeneral();

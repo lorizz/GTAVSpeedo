@@ -344,7 +344,6 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 	if (!engineOn) rpm = 0.0f;
 
 	float screencorrection = invoke<float>(0xF1307EF624A80D87, FALSE);
-	float sizeMult = settings.SpeedoSettings.SpeedoSize;
 	float offsetX = settings.SpeedoSettings.SpeedoXpos;
 	float offsetY = settings.SpeedoSettings.SpeedoYpos;
 
