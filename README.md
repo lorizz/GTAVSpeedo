@@ -40,6 +40,9 @@ This script reads the following decorators:
 * `int` - `mt_shift_indicator`: Shift indicator, from the Manual Transmission mod
 * `int` - `ikt_speedo_nos`: Presence of a nitrous mod
 * `float` - `ikt_speedo_nos_level`: Nitrous level, between 0.0f and 1.0f
+* `int` - `nfsnitro_stage`: Nitrous stage level (1/2/3), used for the NFS Nitro Mod by lorizz12
+* `bool` - `nfsdrag_showhud`: Enables/disables drag HUD
+* `float` - `nfsdrag_heat`: Heat level, uses this if you want overheating (visual impact), 0.0f min heat level; 1.0f max heat level
 
 To make the green N2O bars appear in the speedometer, your mod has to set `ikt_speedo_nos` to 1 on the currently used vehicle, set it to 0 to remove.
 
